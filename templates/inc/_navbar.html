@@ -1,0 +1,44 @@
+{% load static i18n %}
+<header id="header" class="header">
+
+    <div class="header-menu">
+
+        <div class="col-sm-3">
+            {#                <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>#}
+            <div class="header-left">
+                <ul class="nav navbar-nav">
+                    <li  {# class="active" #} >
+                        <a href="{% url 'home_page' %}"> <i class="menu-icon fa fa-video-camera" style="color: black"></i><strong>{% trans 'Göni ýaýlym' %}</strong></a>
+                    </li>
+                    <!-- /.menu-title -->
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-6"> </div>
+        <div class="col-sm-2" style="text-align: end">
+
+            <form action="{% url 'set_language' %}" method="post">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}">
+                <div class="select">
+                    <select name="language"  onchange="this.form.submit()">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                                {{ language.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="col-sm-1">
+            <a class="nav-link" href="{% url 'logout' %}" style="text-align: end"><i class="fa fa-power-off"></i></a>
+        </div>
+
+    </div>
+</header>

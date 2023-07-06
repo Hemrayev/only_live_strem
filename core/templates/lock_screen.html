@@ -1,0 +1,59 @@
+{% load static  i18n%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans 'Akylly gözegçi' %}</title>
+    <link href="{% static 'images/camera.png' %}" rel="icon">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body onload="getTime()">
+
+<div class="container">
+    <div id="showtime"></div>
+    <div class="col-lg-4 col-lg-offset-4">
+        <div class="lock-screen">
+            <div class="modal-footer centered">
+                <a class="btn btn-theme03"  type="button" href="{% url 'login' %}">{% trans 'Ulgama girmek' %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src ="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.backstretch.min.js' %}"></script>
+<script>
+    $.backstretch("{% static 'img/newener.png' %}", {
+        speed: 500
+    });
+</script>
+<script>
+    function getTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        // add a zero in front of numbers<10
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('showtime').innerHTML = h + ":" + m + ":" + s;
+        t = setTimeout(function() {
+            getTime()
+        }, 500);
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+</script>
+</body>
+
+</html>
